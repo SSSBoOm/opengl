@@ -44,6 +44,7 @@ set(LIBS ${LIBS} ${APPLE_LIBS})
 set(PROJECTS
   1_window
   2_triangle
+  2.1_triangle_action
 )
 
 configure_file(configuration/root_directory.h.in configuration/root_directory.h)

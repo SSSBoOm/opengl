@@ -12,11 +12,43 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
   glViewport(0, 0, width, height);
 }
+
 void processInput(GLFWwindow *window)
 {
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
   {
     glfwSetWindowShouldClose(window, true);
+  }
+  // Use Tab to reset the window title to "OpenGL"
+  static std::string titleBuffer;
+  static bool keyStates[GLFW_KEY_LAST + 1] = {false};
+
+  for (int key = GLFW_KEY_SPACE; key <= GLFW_KEY_LAST; ++key)
+  {
+    int state = glfwGetKey(window, key);
+    if (state == GLFW_PRESS && !keyStates[key])
+    {
+      if (key == GLFW_KEY_TAB)
+      {
+        titleBuffer.clear();
+        glfwSetWindowTitle(window, "OpenGL");
+      }
+      else
+      {
+        int scancode = glfwGetKeyScancode(key);
+        const char *keyName = glfwGetKeyName(key, scancode);
+        if (keyName)
+        {
+          titleBuffer += keyName;
+          glfwSetWindowTitle(window, titleBuffer.c_str());
+        }
+      }
+      keyStates[key] = true;
+    }
+    else if (state == GLFW_RELEASE)
+    {
+      keyStates[key] = false;
+    }
   }
 }
 
@@ -32,6 +64,7 @@ int main()
   // glfw window creation
   GLFWwindow *window =
       glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OpenGL", NULL, NULL);
+
   if (window == NULL)
   {
     std::cout << "Failed to create GLFW window" << std::endl;

@@ -27,6 +27,7 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
   glViewport(0, 0, width, height);
 }
+
 void processInput(GLFWwindow *window)
 {
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -65,9 +66,9 @@ int main()
 
   GLfloat vertices[] =
       {
+          -1.0f, 1.0f, 0.0f,
           -1.0f, -1.0f, 0.0f,
-          1.0f, -1.0f, 0.0f,
-          0.0f, 1.0f, 0.0f};
+          1.0f, 0.0f, 0.0f};
 
   GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
   glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
