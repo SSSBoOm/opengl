@@ -45,6 +45,7 @@ set(PROJECTS
   1_window
   2_triangle
   2.1_triangle_action
+  2.2_sierpinski_triangle
 )
 
 configure_file(configuration/root_directory.h.in configuration/root_directory.h)
