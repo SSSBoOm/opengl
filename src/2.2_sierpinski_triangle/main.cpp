@@ -5,30 +5,28 @@
 
 using namespace std;
 
-// Vertex Shader source code
-const char *vertexShaderSource = "#version 330 core\n"
-                                 "layout (location = 0) in vec3 aPos;\n"
-                                 "void main()\n"
-                                 "{\n"
-                                 "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-                                 "}\0";
-// Fragment Shader source code
-const char *fragmentShaderSource = "#version 330 core\n"
-                                   "out vec4 FragColor;\n"
-                                   "void main()\n"
-                                   "{\n"
-                                   "   FragColor = vec4(0.8f, 0.3f, 0.02f, 1.0f);\n"
-                                   "}\n\0";
-
 // settings screen
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 // App data
 // Triangle base points
-float A[2] = {0.0f, 1.0f};
-float B[2] = {-1.0f, -1.0f};
-float C[2] = {1.0f, -1.0f};
+int state = 1;
+float A1[2] = {-1.0f, 1.0f};
+float B1[2] = {-1.0f, -1.0f};
+float C1[2] = {1.0f, 0.0f};
+
+float A2[2] = {-1.0f, 1.0f};
+float B2[2] = {1.0f, 1.0f};
+float C2[2] = {0.0f, -1.0f};
+
+float A3[2] = {1.0f, 1.0f};
+float B3[2] = {1.0f, -1.0f};
+float C3[2] = {-1.0f, 0.0f};
+
+float A4[2] = {0.0f, 1.0f};
+float B4[2] = {-1.0f, -1.0f};
+float C4[2] = {1.0f, -1.0f};
 int depth = 0; // recursion depth
 GLuint VAO, VBO;
 // vertices all
@@ -41,12 +39,24 @@ void generateVertices(vector<float> &verts, float *a, float *b, float *c, int d)
 {
   if (d == 0)
   {
+    float r, g, bl;
     // insert A pos
-    verts.insert(verts.end(), {a[0], a[1], 0.0f});
+    r = (rand() % 1024) / 1023.0f;
+    g = (rand() % 1024) / 1023.0f;
+    bl = (rand() % 1024) / 1023.0f;
+    verts.insert(verts.end(), {a[0], a[1], 0.0f, r, g, bl});
+
     // insert B pos
-    verts.insert(verts.end(), {b[0], b[1], 0.0f});
+    r = (rand() % 1024) / 1023.0f;
+    g = (rand() % 1024) / 1023.0f;
+    bl = (rand() % 1024) / 1023.0f;
+    verts.insert(verts.end(), {b[0], b[1], 0.0f, r, g, bl});
+
     // insert C pos
-    verts.insert(verts.end(), {c[0], c[1], 0.0f});
+    r = (rand() % 1024) / 1023.0f;
+    g = (rand() % 1024) / 1023.0f;
+    bl = (rand() % 1024) / 1023.0f;
+    verts.insert(verts.end(), {c[0], c[1], 0.0f, r, g, bl});
     return;
   }
 
@@ -76,10 +86,32 @@ void generateVertices(vector<float> &verts, float *a, float *b, float *c, int d)
 void updateVertices()
 {
   vertices.clear();
-  generateVertices(vertices, A, B, C, depth);
+  if (state == 1)
+  {
+    generateVertices(vertices, A1, B1, C1, depth);
+  }
+  else if (state == 2)
+  {
+    generateVertices(vertices, A2, B2, C2, depth);
+  }
+  else if (state == 3)
+  {
+    generateVertices(vertices, A3, B3, C3, depth);
+  }
+  else if (state == 4)
+  {
+    generateVertices(vertices, A4, B4, C4, depth);
+  }
+  else
+  {
+    state = 1;
+    updateVertices();
+    return;
+  }
 
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
   glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+  state++;
 }
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
@@ -95,7 +127,7 @@ void processInput(GLFWwindow *window)
     glfwSetWindowShouldClose(window, true);
   }
 
-  if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+  if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
   {
     if (!aPressed) // only trigger once per press
     {
@@ -109,7 +141,7 @@ void processInput(GLFWwindow *window)
   {
     aPressed = false;
   }
-  if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+  if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
   {
     if (!dPressed && depth > 0)
     {
@@ -159,8 +191,11 @@ int main()
   glGenBuffers(1, &VBO);
   glBindVertexArray(VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
   glEnableVertexAttribArray(0);
+
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)(3 * sizeof(float)));
+  glEnableVertexAttribArray(1);
 
   // Clear bind
   glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -180,7 +215,7 @@ int main()
 
     glUseProgram(ourShader.ID);
     glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, vertices.size() / 3);
+    glDrawArrays(GL_TRIANGLES, 0, vertices.size() / 6);
 
     // check and call events and swap the buffers
     glfwSwapBuffers(window);
