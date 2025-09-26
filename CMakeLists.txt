@@ -45,10 +45,11 @@ set(PROJECTS
   1_window
   2_triangle
   2.1_triangle_action
-  2.2_sierpinski_triangle
   3_triangle_shader
   4_textures_combined
+  5_camera_class
   
+  assignment_0
   assignment_1_2d_animation
 )
 
