@@ -35,13 +35,9 @@ void processInput(GLFWwindow *window)
       }
       else
       {
-        int scancode = glfwGetKeyScancode(key);
-        const char *keyName = glfwGetKeyName(key, scancode);
-        if (keyName)
-        {
-          titleBuffer += keyName;
-          glfwSetWindowTitle(window, titleBuffer.c_str());
-        }
+        // Append the key code as a string to the title buffer
+        titleBuffer += std::to_string(key);
+        glfwSetWindowTitle(window, titleBuffer.c_str());
       }
       keyStates[key] = true;
     }
