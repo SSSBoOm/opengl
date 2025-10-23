@@ -48,9 +48,11 @@ set(PROJECTS
   3_triangle_shader
   4_textures_combined
   5_camera_class
+  6_multiple_lights
   
   assignment_0
   assignment_1_2d_animation
+  assignment_2_3d_kinetic_sculpture_animation
 )
 
 configure_file(configuration/root_directory.h.in configuration/root_directory.h)
