@@ -28,6 +28,8 @@ The environment includes basic wall collision detection and camera tracking for 
 | ----------------------------------------------------------------------------- |
 | <img src="/.github/images/assignment_3.png" alt="3d sculpture" width="900" /> |
 
+https://github.com/user-attachments/assets/4b15cc19-b4b2-4ca0-909d-b4861b308af3
+
 ## Demo
 
 [![Watch Demo on YouTube](https://img.shields.io/badge/Watch%20Demo-YouTube-red?logo=youtube)](https://youtu.be/mII2cEHWfHA)
