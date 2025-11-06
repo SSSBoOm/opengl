@@ -33,3 +33,9 @@ https://github.com/user-attachments/assets/4b15cc19-b4b2-4ca0-909d-b4861b308af3
 ## Demo
 
 [![Watch Demo on YouTube](https://img.shields.io/badge/Watch%20Demo-YouTube-red?logo=youtube)](https://youtu.be/mII2cEHWfHA)
+
+## Credits
+
+- **Player 3D Model:** provided by [Mixamo](https://www.mixamo.com/)
+- **Textures:** from [LearnOpenGL resources](https://learnopengl.com/)
+- **Frameworks:** GLFW, GLAD, Assimp, stb_image, and GLM
