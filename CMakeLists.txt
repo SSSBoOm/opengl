@@ -50,6 +50,7 @@ set(PROJECTS
   5_camera_class
   6_multiple_lights
   7_model_loading
+  8_skeletal_animation
   
   assignment_0
   assignment_1_2d_animation
