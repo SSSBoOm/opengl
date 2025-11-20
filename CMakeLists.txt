@@ -56,6 +56,7 @@ set(PROJECTS
   assignment_1_2d_animation
   assignment_2_3d_kinetic_sculpture_animation
   assignment_3_loading_3d_model
+  assignment_4_character_animation_control
 )
 
 configure_file(configuration/root_directory.h.in configuration/root_directory.h)
