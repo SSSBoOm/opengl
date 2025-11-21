@@ -32,6 +32,8 @@ A dynamic third-person camera smoothly follows the character’s position and ya
 | ----------------------------------------------------------------------------- |
 | <img src="/.github/images/assignment_4.png" alt="assignment_4" width="900" /> |
 
+https://github.com/user-attachments/assets/175235f4-03d0-4067-b722-44fd2efcc613
+
 ## Demo
 
 [![Watch Demo on YouTube](https://img.shields.io/badge/Watch%20Demo-YouTube-red?logo=youtube)](https://youtu.be/61DsuNP71bE)
